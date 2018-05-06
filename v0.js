@@ -19,9 +19,9 @@ const VERSION = 0;
 
 /**
  *
- * @param producerId
- * @param batchId
- * @param id
+ * @param {string} producerId
+ * @param {string} batchId
+ * @param {string} id
  * @returns {string}
  */
 function composeCode(producerId, batchId, id) {
@@ -35,10 +35,11 @@ function composeCode(producerId, batchId, id) {
  * next  2 bits - producer code length extension 0 - 3 (assuming min 2 digits producerId length can vary from 2 to 5)
  * next  3 bits - batch code length extension 0 - 7 (assuming min 3 digits batchId length can vary from 3 to 10)
  * last  1 bit  - indicates code digital sign length extention (asume base length 4 digits extended sign will be 6) (not actual)
- * @param producerId
- * @param batchId
- * @param id
+ * @param {string} producerId
+ * @param {string} batchId
+ * @param {string} id
  * @param sign
+ * @param {number} [ver]
  * @returns {string}
  */
 function generateCodeDescr(producerId, batchId, id, sign, ver) {
@@ -125,7 +126,8 @@ function str2Sign36(sign, blockLen) {
 /**
  * creates alphanum representation of marking code
  * @param {{id: number, dsa: {q: number, p: number, g: number}, version: number, producerId: number, publicKey: number, privateKey: number}} batch
- * @param {number} id
+ * @param {*} id
+ * @param {number} [ver]
  */
 function encode(batch, id, ver) {
     //producerId min 2 digits
@@ -148,7 +150,7 @@ function encode(batch, id, ver) {
  *
  * @param {string} code
  * @param {{id: number, dsa: {q: number, p: number, g: number}, version: number, producerId: number, publicKey: number, privateKey: number}} batch
- * @return {{version: number, producerId: string, batchId: string, id: string, sign: string}}
+ * @return {{version: number, producerId: number, batchId: number, id: number, signOk: boolean}}
  */
 function decode(code, batch) {
     let cd = decodeCodeDescr(code);

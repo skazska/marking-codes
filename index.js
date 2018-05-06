@@ -30,8 +30,7 @@ const VERSIONS = [
 
 /**
  * creates alphanum representation of marking code
- * @param {{q: number, p: number, g: number}} dsaParams
- * @param {{version: number, producerId: number, batch: {id: number, publicKey: number}, privateKey: number}} batch
+ * @param {{dsa: {q: number, p: number, g: number}, id: number, version: number, producerId: number, publicKey: number, privateKey: number}} batch
  * @param {number} id
  */
 function encode(batch, id) {
