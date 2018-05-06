@@ -1,5 +1,5 @@
 {
-  "name": "marking-codes",
+  "name": "@skazska/marking-codes",
   "version": "0.0.0",
   "description": "marking code utils",
   "main": "index.js",
