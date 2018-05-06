@@ -1,0 +1,23 @@
+{
+  "name": "marking-codes",
+  "version": "0.0.0",
+  "description": "marking code utils",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skazska/marking-codes.git"
+  },
+  "author": "skazska@gmail.com",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/skazska/marking-codes/issues"
+  },
+  "homepage": "https://github.com/skazska/marking-codes#readme",
+  "dependencies": {
+    "@skazska/base36-utils": "0.0.1",
+    "@skazska/nano-dsa": "^0.1.1"
+  }
+}
