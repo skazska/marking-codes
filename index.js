@@ -37,6 +37,14 @@ function encode(batch, id) {
     return VERSIONS[batch.version || 0].encode.apply(this, arguments);
 }
 
+/**
+ *
+ * @param {string} code
+ * @param {{id: number, dsa: {q: number, p: number, g: number}, version: number, producerId: number, publicKey: number, privateKey: number}} batch
+ * @return {{
+ *      version: number, descriptor: string, producerIdCode: string, producerId: number, batchIdCode: string,
+ *      batchId: number, idCode: string, id: number, sign:string, signOk: boolean}}
+ */
 function decode(code, batch) {
     if (!code) return;
     let cd = b36.str2Int36(code.substr(0, 2)) >>> 6;
