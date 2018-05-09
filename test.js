@@ -1,5 +1,8 @@
 const codes = require('./index.js');
 
+console.log('batch: ', codes.prepareBatch({id: 0, producerId: 0, version: 0}));
+
+
 let keys = {"pub":858450,"pri":816};
 //let keys = {"pub":1,"pri":1021}
 

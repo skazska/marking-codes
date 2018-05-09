@@ -27,6 +27,15 @@ const VERSIONS = [
  * rest of code may depend on code version, version can affect anything up to dsa params used
  */
 
+/**
+ * prepares code batch record
+ * @param {{producerId: number, id: number, version: number}} batchData
+ * @return {{id: number, dsa: {q: number, p: number, g: number}, version: number, producerId: number, publicKey: number, privateKey: number}}
+ */
+function prepareBatch(batchData) {
+    return VERSIONS[batchData.version || 0].prepareBatch.apply(this, arguments);
+}
+
 
 /**
  * creates alphanum representation of marking code
@@ -46,7 +55,7 @@ function encode(batch, id) {
  *      batchId: number, idCode: string, id: number, sign:string, signOk: boolean}}
  */
 function decode(code, batch) {
-    if (!code) return;
+    if (!code) throw new Error('code is not provided!');
     let cd = b36.str2Int36(code.substr(0, 2)) >>> 6;
     return VERSIONS[cd].decode.apply(this, arguments);
 }
@@ -54,5 +63,6 @@ function decode(code, batch) {
 module.exports = {
     versions: VERSIONS,
     encode: encode,
-    decode: decode
+    decode: decode,
+    prepareBatch: prepareBatch
 };

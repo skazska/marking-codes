@@ -1,6 +1,8 @@
 const dsa = require('@skazska/nano-dsa');
 const b36 = require('@skazska/base36-utils');
 const hash = require('./v0-hash');
+const dsaTest = require('./dsaTestV0');
+
 
 //const VERSION = 15;
 // const VERSION = 7;
@@ -16,6 +18,40 @@ const VERSION = 0;
  *
  * variations of blocks for producer batch and sign indicated in code descriptior
  */
+
+/**
+ * prepares code batch record
+ * @param {{producerId: number, id: number, version: number}} batchData
+ * @return {{id: number, dsa: {q: number, p: number, g: number}, version: number, producerId: number, publicKey: number, privateKey: number}}
+ */
+function prepareBatch(batchData) {
+    let dsaParams = {};
+    let keys = {};
+    let testResult = false;
+    let trial = 0;
+
+    //generate dsa params & keys
+    do {
+        do {
+            //generate dsa codes for batch
+            do {
+                dsaParams = dsa.generateParams(1500, 30000);
+            } while (dsaParams.q < 300 || dsaParams.q > 1295 || dsaParams.p < 300 || dsaParams.q > 7000000 || dsaParams.g < 30 || dsaParams.g > 7000000);
+
+            keys = dsa.generateKeys(dsaParams);
+        } while (keys.pri < 300 || keys.pri > 1295 || keys.pub < 5000);
+        testResult = dsaTest.quickTest(dsaParams, keys, ++trial);
+    } while (!testResult);
+
+    return {
+        producerId: batchData.producerId,
+        id: batchData.id,
+        version: batchData.version,
+        dsa: dsaParams,
+        publicKey: keys.pub,
+        privateKey: keys.pri
+    };
+}
 
 /**
  *
@@ -181,6 +217,7 @@ function decode(code, batch) {
 }
 
 module.exports = {
+    prepareBatch: prepareBatch,
     encode: encode,
     decode: decode
 };
