@@ -1,6 +1,6 @@
 {
   "name": "@skazska/marking-codes",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "marking code utils",
   "main": "index.js",
   "scripts": {
