@@ -166,9 +166,14 @@ function decode(code, batch) {
 
     return {
         version: cd.version,
+        descriptor: code.substr(0, 2),
+        producerIdCode: producerId,
         producerId: b36.str2Int36(producerId),
+        batchCode: batchId,
         batchId: b36.str2Int36(batchId),
+        idCode: id,
         id: b36.str2Int36(id),
+        sign: sign,
         signOk: signOk
     }
 }
