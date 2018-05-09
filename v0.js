@@ -150,7 +150,9 @@ function encode(batch, id, ver) {
  *
  * @param {string} code
  * @param {{id: number, dsa: {q: number, p: number, g: number}, version: number, producerId: number, publicKey: number, privateKey: number}} batch
- * @return {{version: number, producerId: number, batchId: number, id: number, signOk: boolean}}
+ * @return {{
+ *      version: number, descriptor: string, producerIdCode: string, producerId: number, batchIdCode: string,
+ *      batchId: number, idCode: string, id: number, sign:string, signOk: boolean}}
  */
 function decode(code, batch) {
     let cd = decodeCodeDescr(code);
@@ -169,7 +171,7 @@ function decode(code, batch) {
         descriptor: code.substr(0, 2),
         producerIdCode: producerId,
         producerId: b36.str2Int36(producerId),
-        batchCode: batchId,
+        batchIdCode: batchId,
         batchId: b36.str2Int36(batchId),
         idCode: id,
         id: b36.str2Int36(id),
